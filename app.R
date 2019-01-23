@@ -28,6 +28,9 @@ ui <- dashboardPage(
              box(width=NULL, title="Visualization of linear regression results", solidHeader = T, status="warning",
                  "The estimated main effects and their 95% confidence intervals are visualized below by group.",
                  plotOutput("lmPlot", height=250)
+             ),
+             box(width=NULL, background="purple",
+                 "Modifications to this example are welcome! Please make a pull request at", uiOutput("githubUrl")
              )
       ),
       column(width=6,
@@ -114,6 +117,11 @@ server <- function(input, output) {
                    star.cutoffs=c(0.05,0.01,0.001)))
   })
   
+  output$githubUrl <- renderUI({
+    url <- a("https://github.com/bilgelm/linreg_interaction_centering",
+             href="https://github.com/bilgelm/linreg_interaction_centering")
+    tagList(url)
+  })
 }
 
 shinyApp(ui = ui, server = server)
